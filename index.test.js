@@ -155,6 +155,8 @@ describe('E3 - List users', () => {
 
 describe('E4 - Delete users', () => {
     it('should delete a user', async () => {
+        createUser(app, 0);
+
         const res = await request(app)
             .delete('/users/0');
 
