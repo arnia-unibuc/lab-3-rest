@@ -6,110 +6,40 @@ app.use(express.json());
 
 const db = {
     users: [],
-    posts: [],
-}
+};
 
-const createUsers = (amount = 10) => {
-    for (let i = 0; i < amount; i++) {
-        db.users.push({
-            id: i,
-            name: `User ${i}`,
-            email: `test@test.com`,
-        });
-    }
-}
+/* E1 - Create Users
+ * Definiti o ruta care sa primeasca un request de tip POST la adresa /users.
+ * Ruta va primi un obiect de forma { name: String, email: String }.
+ * Daca obiectul nu are ambele proprietati, se va returna un mesaj de eroare.
+ * Daca obiectul are ambele proprietati, se va adauga in array-ul users din memorie.
+ * Ruta va returna obiectul adaugat impreuna cu un id generat automat.
+ */
 
-app.get('/users', (req, res) => {
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const page = parseInt(req.query.page, 10) || 0;
-    const sliceStart = page * limit;
+/* E2 - Update Users
+ * Definiti o ruta care sa primeasca un request de tip PUT la adresa /users/:id.
+ * Ruta va primi un obiect de forma { name: String, email: String }.
+ * Daca obiectul nu are ambele proprietati, se va returna un mesaj de eroare.
+ * Daca obiectul are ambele proprietati, se va cauta in array-ul users din memorie user-ul cu id-ul primit in ruta.
+ * Daca user-ul nu exista, se va returna un mesaj de eroare.
+ * Daca user-ul exista, i se vor actualiza proprietatile cu valorile din obiect si se va returna obiectul actualizat.
+ */
 
-    const response = db.users.slice(sliceStart, sliceStart + limit);
+/* E3 - List Users
+ * Definiti o ruta care sa primeasca un request de tip GET la adresa /users.
+ * Ruta poate accepta doua query params optionale: page si limit.
+ * Daca exista, page si limit trebuie sa fie numere pozitive.
+ * Daca nu exista, page si limit vor avea valorile implicite 0 si 10.
+ * Ruta va returna un array de useri care respecta pagina si limita specificate.
+ * Daca nu exista useri care sa respecte pagina si limita, se va returna un array gol.
+ */
 
-    res.json(response);
-});
-
-app.post('/users', (req, res) => {
-    const { name, email } = req.body;
-
-    if(!name) {
-        res.status(400).json({ error: 'Name is required' });
-        return;
-    }
-
-    if(!email) {
-        res.status(400).json({ error: 'Email is required' });
-        return;
-    }
-
-    if(!name && !email) {
-        res.status(400).json({ error: 'Name and Email are required' });
-        return;
-    }
-
-    if(db.users.find(user => user.email === email)) {
-        res.status(400).json({ error: 'Email already exists' });
-        return;
-    }
-
-    const user = {
-        id: db.users.length,
-        name,
-        email,
-    };
-
-    db.users.push(user);
-
-    res.send(user);
-});
-
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;
-    const { name, email } = req.body;
-
-    if(!name) {
-        res.status(400).json({ error: 'Name is required' });
-        return;
-    }
-
-    if(!email) {
-        res.status(400).json({ error: 'Email is required' });
-        return;
-    }
-
-    if(!name && !email) {
-        res.status(400).json({ error: 'Name and Email are required' });
-        return;
-    }
-
-    if(!db.users[id]) {
-        res.status(404).json({ error: 'User does not exist' });
-        return;
-    }
-
-    const user = {
-        id: parseInt(id, 10),
-        name,
-        email,
-    };
-
-    db.users[id] = user;
-
-    res.send(user);
-});
-
-app.delete('/users/:id', (req, res) => {
-    const { id } = req.params;
-
-    if(!db.users[id]) {
-        res.status(400).json({ error: 'User does not exist' });
-        return;
-    }
-
-    db.users.splice(id, 1);
-
-    res.send({ success: true });
-});
+/* E4 - Delete Users
+ * Definiti o ruta care sa primeasca un request de tip DELETE la adresa /users/:id.
+ * Ruta va cauta in array-ul users din memorie user-ul cu id-ul primit in ruta.
+ * Daca user-ul nu exista, se va returna un mesaj de eroare.
+ * Daca user-ul exista, se va sterge din array.
+ */
 
 
 
