@@ -19,7 +19,7 @@ describe('E1 - Create users', () => {
               email: 'john@test.com',
           });
 
-        expect(res.statusCode).toEqual(200);
+        expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('id');
         expect(res.body).toHaveProperty('name');
         expect(res.body).toHaveProperty('email');
@@ -74,7 +74,7 @@ describe('E2 - Update users', () => {
         await createUser(app, 0);
 
         const res = await request(app)
-          .put('/users/0')
+          .post('/users/0')
           .send({
               name: 'John',
               email: 'john.doe@example.com',
@@ -88,7 +88,7 @@ describe('E2 - Update users', () => {
 
     it('should not update a user without name', async () => {
         const res = await request(app)
-          .put('/users/0')
+          .post('/users/0')
           .send({
               email: 'john.doe@example.com',
           });
@@ -99,7 +99,7 @@ describe('E2 - Update users', () => {
 
     it('should not update a user without email', async () => {
         const res = await request(app)
-          .put('/users/0')
+          .post('/users/0')
           .send({
               name: 'John',
           });
@@ -110,7 +110,7 @@ describe('E2 - Update users', () => {
 
     it('should not update a user without name and email', async () => {
         const res = await request(app)
-          .put('/users/0')
+          .post('/users/0')
           .send({});
 
         expect(res.statusCode).toEqual(400);
@@ -169,7 +169,7 @@ describe('E4 - Delete users', () => {
         const res = await request(app)
           .delete('/users/999');
 
-        expect(res.statusCode).toEqual(400);
+        expect(res.statusCode).toEqual(404);
         expect(res.body).toHaveProperty('error');
     });
 });

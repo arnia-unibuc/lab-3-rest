@@ -16,6 +16,7 @@ const db = {
  * Ruta va returna obiectul adaugat impreuna cu un id generat automat.
  */
 
+
 /* E2 - Update Users
  * Definiti o ruta care sa primeasca un request de tip PUT la adresa /users/:id.
  * Ruta va primi un obiect de forma { name: String, email: String }.
@@ -24,6 +25,7 @@ const db = {
  * Daca user-ul nu exista, se va returna un mesaj de eroare.
  * Daca user-ul exista, i se vor actualiza proprietatile cu valorile din obiect si se va returna obiectul actualizat.
  */
+
 
 /* E3 - List Users
  * Definiti o ruta care sa primeasca un request de tip GET la adresa /users.
@@ -34,13 +36,12 @@ const db = {
  * Daca nu exista useri care sa respecte pagina si limita, se va returna un array gol.
  */
 
+
 /* E4 - Delete Users
  * Definiti o ruta care sa primeasca un request de tip DELETE la adresa /users/:id.
  * Ruta va cauta in array-ul users din memorie user-ul cu id-ul primit in ruta.
  * Daca user-ul nu exista, se va returna un mesaj de eroare.
  * Daca user-ul exista, se va sterge din array.
  */
-
-
 
 module.exports = app;
