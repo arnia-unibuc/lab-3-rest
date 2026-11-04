@@ -12,13 +12,13 @@ jobs:
     if: github.actor != 'github-classroom[bot]'
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: E1
       id: e1
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: E1
-        setup-command: npm install
+        setup-command: npm ci
         command: npm test -- --test-name-pattern "E1"
         timeout: 10
     - name: E2
@@ -26,7 +26,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: E2
-        setup-command: npm install
+        setup-command: npm ci
         command: npm test -- --test-name-pattern "E2"
         timeout: 10
     - name: E3
@@ -34,7 +34,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: E3
-        setup-command: npm install
+        setup-command: npm ci
         command: npm test -- --test-name-pattern "E3"
         timeout: 10
     - name: E4
@@ -42,7 +42,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: E4
-        setup-command: npm install
+        setup-command: npm ci
         command: npm test -- --test-name-pattern "E4"
         timeout: 10
     - name: Autograding Reporter
